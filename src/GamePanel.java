@@ -1,14 +1,17 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements KeyListener{
+public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	
 	public static BufferedImage image;
 	public static boolean needImage = true;
@@ -22,7 +25,8 @@ public class GamePanel extends JPanel implements KeyListener{
     final int END = 3;
     int mode = MENU;
     int level = 1;
-	
+    
+    Timer updateTimer = new Timer(1000/60, this);
 	String menuBackground = "menu_background.jpg";
 	String gameBackground = "grass_14.png";
 	String wizard1 = "wandless_wizard.png";
@@ -30,9 +34,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	Font continueFont = new Font("Arial", Font.PLAIN, 40);
 	Font gameFont = new Font("Arial", Font.PLAIN, 40);
 	Font gameSubtitle = new Font("Arial", Font.BOLD, 25);
-	int wizardX = 50;
-	int wizardY = 450;
-	
+	Wizard w;
 	
 	GamePanel() {
 		if (needImage) {
@@ -43,6 +45,8 @@ public class GamePanel extends JPanel implements KeyListener{
 				// TODO: handle exception
 			}
 		}
+		w = new Wizard(50, 450, 100, 100);
+		updateTimer.start();
 	}
 	
 	protected void paintComponent(Graphics g) {
@@ -59,7 +63,7 @@ public class GamePanel extends JPanel implements KeyListener{
 		}
 		if(mode==GAME) {
 			setGameText(g);
-			g.drawImage(wizardimage1, wizardX, wizardY, 100, 100, null);
+			g.drawImage(wizardimage1, w.x, w.y, w.width, w.height, null);
 			if(level==1) {
 				drawLevel1Text(g);
 			}
@@ -99,6 +103,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	        needImage = false;
 	    }
 	}
+	
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -114,24 +119,37 @@ public class GamePanel extends JPanel implements KeyListener{
 		    needImage=true;
 			loadImage (gameBackground);
 		}
+		if(mode==GAME) {
 		if(e.getKeyCode()==KeyEvent.VK_UP) {
-			wizardY-=10;
+			w.moveUp();
 		}
 		if(e.getKeyCode()==KeyEvent.VK_DOWN) {
-			wizardY+=10;
+			w.moveDown();
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT) {
-			wizardX-=10;
+			w.moveLeft();
 		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
-			wizardX+=10;
+			w.moveRight();
 		}
 		repaint();
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		w.XSpeed = 0;
+		w.YSpeed = 0;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(mode==GAME) {
+			w.update();
+		}
+		repaint();
 		
 	}
 }
