@@ -45,7 +45,13 @@ public class GameObject {
 	void moveDown() {
 		YSpeed=5;
 	}
-	
+
+	void setX(int x) {
+		this.x=x;
+	}
+	void setY(int y) {
+		this.y=y;
+	}
 	
 	
 	

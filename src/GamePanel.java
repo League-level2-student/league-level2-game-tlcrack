@@ -13,7 +13,8 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	
-	public static BufferedImage image;
+	public static BufferedImage menuImage;
+	public static BufferedImage gameImage;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 	
@@ -50,24 +51,33 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	}
 	
 	protected void paintComponent(Graphics g) {
-		
+		BufferedImage bg;
+			bg=menuImage;
+		if (mode==GAME) {
+			bg=gameImage;
+		}
 		if (gotImage) {
-			g.drawImage(image, 0, 0, null);
+			g.drawImage(bg, 0, 0, null);
 		} else {
 			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, 1000, 1000);
 		}
 		
 		if(mode==MENU) {
+			
 			drawMenuText(g);
 		}
 		if(mode==GAME) {
+			
 			setGameText(g);
 			g.drawImage(wizardimage1, w.x, w.y, w.width, w.height, null);
+			
 			if(level==1) {
 				drawLevel1Text(g);
 			}
-			
+			if(level==2) {
+				drawLevel2Text(g);
+			}
 			
 			
 		}
@@ -85,17 +95,25 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		g.setFont(gameFont);
 		g.setColor(new Color(0, 0, 50));
 	}
-	
+
 	void drawLevel1Text(Graphics g) {
 		g.drawString("Hello, stranger. Welcome to this bizarre land.", 125, 100);
 		g.setFont(gameSubtitle);
 		g.drawString("Use arrow keys to move.", 350, 150);
 	}
+	void drawLevel2Text(Graphics g) {
+		g.drawString("A Wand! Grab it.", 350, 100);
+		g.setFont(gameSubtitle);
+		g.drawString("Press space to fire an energy ball.", 300, 150);
+	}
 	
 	void loadImage(String imageFile) {
+		
 	    if (needImage) {
 	        try {
-	        	image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+	        	menuImage = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+	        	gameImage = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+	        	
 		    gotImage = true;
 	        } catch (Exception e) {
 	            
@@ -103,7 +121,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	        needImage = false;
 	    }
 	}
-	
+		void drawGameState() {
+			if(w.x>1000) {
+				level+=1;
+				w.setX(0);
+				w.setY(450);
+			}
+		}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -119,7 +143,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		    needImage=true;
 			loadImage (gameBackground);
 		}
-		if(mode==GAME) {
+		if(mode==GAME||mode==BOSS) {
 		if(e.getKeyCode()==KeyEvent.VK_UP) {
 			w.moveUp();
 		}
@@ -148,6 +172,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		// TODO Auto-generated method stub
 		if(mode==GAME) {
 			w.update();
+			drawGameState();
 		}
 		repaint();
 		
