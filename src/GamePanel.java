@@ -18,7 +18,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 	
-	public BufferedImage wizardimage1;
+	public BufferedImage wizardImage1;
+	public BufferedImage wandImage;
+	public BufferedImage wizardImage2;
 	
 	final int MENU = 0;
     final int GAME = 1;
@@ -28,25 +30,34 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
     int level = 1;
     
     Timer updateTimer = new Timer(1000/60, this);
+    
 	String menuBackground = "menu_background.jpg";
 	String gameBackground = "grass_14.png";
 	String wizard1 = "wandless_wizard.png";
+	String wand = "wand.png";
+	String wizard2 = "wizard.png";
+	
 	Font welcomeFont = new Font("Arial", Font.PLAIN, 50);
 	Font continueFont = new Font("Arial", Font.PLAIN, 40);
 	Font gameFont = new Font("Arial", Font.PLAIN, 40);
 	Font gameSubtitle = new Font("Arial", Font.BOLD, 25);
 	Wizard w;
+	ObjectManager om;
+	GameObject staff = new GameObject(880, 500, 70, 70);
 	
 	GamePanel() {
 		if (needImage) {
 		    loadImage (menuBackground);
 		    try {
-			    wizardimage1 = ImageIO.read(this.getClass().getResourceAsStream(wizard1));
+			    wizardImage1 = ImageIO.read(this.getClass().getResourceAsStream(wizard1));
+			    wandImage = ImageIO.read(this.getClass().getResourceAsStream(wand));
+			    wizardImage2 = ImageIO.read(this.getClass().getResourceAsStream(wizard2));
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
 		w = new Wizard(50, 450, 100, 100);
+		om=new ObjectManager(this, w);
 		updateTimer.start();
 	}
 	
@@ -69,17 +80,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		}
 		if(mode==GAME) {
 			
-			setGameText(g);
-			g.drawImage(wizardimage1, w.x, w.y, w.width, w.height, null);
-			
-			if(level==1) {
-				drawLevel1Text(g);
-			}
-			if(level==2) {
-				drawLevel2Text(g);
-			}
-			
-			
+			om.draw(g);
 		}
 	}
 	
@@ -89,22 +90,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		g.drawString("Welcome To Wizardia!", 240, 200);
 		g.setFont(continueFont);
 		g.drawString("Press Space to Play", 300, 500);
-	}
-	
-	void setGameText(Graphics g) {
-		g.setFont(gameFont);
-		g.setColor(new Color(0, 0, 50));
-	}
-
-	void drawLevel1Text(Graphics g) {
-		g.drawString("Hello, stranger. Welcome to this bizarre land.", 125, 100);
-		g.setFont(gameSubtitle);
-		g.drawString("Use arrow keys to move.", 350, 150);
-	}
-	void drawLevel2Text(Graphics g) {
-		g.drawString("A Wand! Grab it.", 350, 100);
-		g.setFont(gameSubtitle);
-		g.drawString("Press space to fire an energy ball.", 300, 150);
 	}
 	
 	void loadImage(String imageFile) {
@@ -171,7 +156,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(mode==GAME) {
-			w.update();
+			om.update();
 			drawGameState();
 		}
 		repaint();
