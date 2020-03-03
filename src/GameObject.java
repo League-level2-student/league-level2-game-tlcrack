@@ -22,6 +22,7 @@ public class GameObject {
 		collisionBox.setBounds(x, y, width, height);
 		x+=XSpeed;
 		y+=YSpeed;
+		
 	}
 	void draw(Graphics g) {
 		g.setColor(Color.red);

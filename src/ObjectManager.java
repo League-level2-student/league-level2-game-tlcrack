@@ -4,6 +4,7 @@ import java.awt.Graphics;
 public class ObjectManager {
 	GamePanel gp;
 	Wizard w;
+	boolean hasWand = false;
 	
 	public ObjectManager(GamePanel gp, Wizard w) {
 		this.gp=gp;
@@ -14,15 +15,22 @@ public class ObjectManager {
 
 		
 		setGameText(g);
-		g.drawImage(gp.wizardImage1, w.x, w.y, w.width, w.height, null);
-		
+		if(hasWand==false) {
+			g.drawImage(gp.wizardImage1, w.x, w.y, w.width, w.height, null);
+		}
+		else {
+			g.drawImage(gp.wizardImage2, w.x, w.y, w.width, w.height, null);
+		}
 		if(gp.level==1) {
 			drawLevel1Text(g);
 		}
 		if(gp.level==2) {
 			drawLevel2Text(g);
-			g.drawImage(gp.wandImage, gp.staff.x, gp.staff.y, gp.staff.width, gp.staff.height, null);
+			if(hasWand==false) {
+				g.drawImage(gp.wandImage, gp.staff.x, gp.staff.y, gp.staff.width, gp.staff.height, null);
+			}
 		}
+		gp.wb.draw(g);
 		
 		
 	
@@ -48,7 +56,22 @@ public class ObjectManager {
 	void update() {
 		w.update();
 		if(gp.level==2) {
-			
+			if (collisionCheck(w, gp.staff)==true){
+				hasWand=true;
+				
+			}
 		}
 	}
+	
+	boolean collisionCheck(GameObject a, GameObject b) {
+		if(a.collisionBox.intersects(b.collisionBox)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	
 }

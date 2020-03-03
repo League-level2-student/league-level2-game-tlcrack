@@ -43,7 +43,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	Font gameSubtitle = new Font("Arial", Font.BOLD, 25);
 	Wizard w;
 	ObjectManager om;
-	GameObject staff = new GameObject(880, 500, 70, 70);
+	GameObject staff = new GameObject(880, 500, 65, 65);
+	WizardBeam wb;
 	
 	GamePanel() {
 		if (needImage) {
@@ -57,6 +58,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 			}
 		}
 		w = new Wizard(50, 450, 100, 100);
+		wb = new WizardBeam(w.x+w.width, w.y, 300, 214);
 		om=new ObjectManager(this, w);
 		updateTimer.start();
 	}
@@ -141,6 +143,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
 			w.moveRight();
 		}
+		
+		if(om.hasWand) {
+			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+				wb.isActive=true;
+				System.out.println("beam on");
+			}
+		}
 		repaint();
 		}
 	}
@@ -150,6 +159,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		// TODO Auto-generated method stub
 		w.XSpeed = 0;
 		w.YSpeed = 0;
+		if(om.hasWand&&wb.isActive) {
+			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+				wb.isActive=false;
+				System.out.println("beam off");
+			}
+		}
 	}
 
 	@Override
