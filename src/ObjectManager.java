@@ -1,14 +1,18 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class ObjectManager {
 	GamePanel gp;
 	Wizard w;
 	boolean hasWand = false;
+	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	public boolean isDay = true;
 	
 	public ObjectManager(GamePanel gp, Wizard w) {
 		this.gp=gp;
 		this.w=w;
+		enemies.add(new Enemy(700, 400, 100, 100));
 	}
 	
 	void draw(Graphics g) {
@@ -28,6 +32,13 @@ public class ObjectManager {
 			drawLevel2Text(g);
 			if(hasWand==false) {
 				g.drawImage(gp.wandImage, gp.staff.x, gp.staff.y, gp.staff.width, gp.staff.height, null);
+			}
+		}
+		if(gp.level==3) {
+			isDay=false;
+			drawLevel3Text(g);
+			for(int i = enemies.size()-1; i>=0; i--) {
+				enemies.get(i).draw(g);
 			}
 		}
 		gp.wb.draw(g);

@@ -15,6 +15,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	
 	public static BufferedImage menuImage;
 	public static BufferedImage gameImage;
+	public static BufferedImage gameNightImage;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 	
@@ -32,7 +33,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
     Timer updateTimer = new Timer(1000/60, this);
     
 	String menuBackground = "menu_background.jpg";
-	String gameBackground = "grass_14.png";
+	String gameBackground = "grass.png";
+	String gameNightBackground = "darkened grass.jpg";
 	String wizard1 = "wandless_wizard.png";
 	String wand = "wand.png";
 	String wizard2 = "wizard.png";
@@ -48,7 +50,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	
 	GamePanel() {
 		if (needImage) {
-		    loadImage (menuBackground);
+		    loadImage();
 		    try {
 			    wizardImage1 = ImageIO.read(this.getClass().getResourceAsStream(wizard1));
 			    wandImage = ImageIO.read(this.getClass().getResourceAsStream(wand));
@@ -67,7 +69,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		BufferedImage bg;
 			bg=menuImage;
 		if (mode==GAME) {
-			bg=gameImage;
+			if(om.isDay) {
+				bg=gameImage;
+			}
+			else {
+				bg=gameNightImage;
+			}
 		}
 		if (gotImage) {
 			g.drawImage(bg, 0, 0, null);
@@ -94,12 +101,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		g.drawString("Press Space to Play", 300, 500);
 	}
 	
-	void loadImage(String imageFile) {
+	void loadImage() {
 		
 	    if (needImage) {
 	        try {
-	        	menuImage = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
-	        	gameImage = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+	        	menuImage = ImageIO.read(this.getClass().getResourceAsStream(menuBackground));
+	        	gameImage = ImageIO.read(this.getClass().getResourceAsStream(gameBackground));
+	        	gameNightImage = ImageIO.read(this.getClass().getResourceAsStream(gameNightBackground));
 	        	
 		    gotImage = true;
 	        } catch (Exception e) {
@@ -128,7 +136,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		if(mode==MENU && e.getKeyCode()==KeyEvent.VK_SPACE) {
 			mode=GAME;
 		    needImage=true;
-			loadImage (gameBackground);
+			loadImage();
 		}
 		if(mode==GAME||mode==BOSS) {
 		if(e.getKeyCode()==KeyEvent.VK_UP) {

@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,9 @@ public class Enemy extends GameObject{
 	        }
 	        needImage = false;
 	    }
+	}
+	void draw(Graphics g) {
+		g.drawImage(image, x, y, image.getWidth(), image.getHeight(), null);
 	}
 
 }
