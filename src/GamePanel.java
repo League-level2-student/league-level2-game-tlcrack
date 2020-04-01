@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 			}
 		}
 		w = new Wizard(50, 450, 100, 100);
-		wb = new WizardBeam(w.x+w.width, w.y, 300, 214);
+		wb = new WizardBeam(w.x+w.width, w.y-(w.height/2), 300, 214);
 		om=new ObjectManager(this, w);
 		updateTimer.start();
 	}
@@ -147,7 +147,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		if(om.hasWand) {
 			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
 				wb.isActive=true;
-				System.out.println("beam on");
 			}
 		}
 		repaint();
@@ -162,7 +161,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		if(om.hasWand&&wb.isActive) {
 			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
 				wb.isActive=false;
-				System.out.println("beam off");
 			}
 		}
 	}

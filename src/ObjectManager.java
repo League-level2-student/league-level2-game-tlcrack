@@ -51,10 +51,16 @@ public class ObjectManager {
 	void drawLevel2Text(Graphics g) {
 		g.drawString("A Wand! Grab it.", 350, 100);
 		g.setFont(gp.gameSubtitle);
-		g.drawString("Press space to fire an energy ball.", 300, 150);
+		g.drawString("Press space to fire an energy beam.", 300, 150);
+	}
+	void drawLevel3Text(Graphics g) {
+		g.drawString("It's getting dark. Look out!", 350, 100);
+		g.setFont(gp.gameSubtitle);
+		g.drawString("Kill the bats with your energy beam.", 300, 150);
 	}
 	void update() {
 		w.update();
+		gp.wb.update(w.x, w.y, w.height);
 		if(gp.level==2) {
 			if (collisionCheck(w, gp.staff)==true){
 				hasWand=true;

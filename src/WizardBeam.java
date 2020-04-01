@@ -31,6 +31,12 @@ public class WizardBeam extends GameObject{
 		}
 		super.draw(g);
 	}
+	void update(int newX,int newY,int height) {
+		this.x=newX;
+		this.y=newY-(height/2);
+		
+		
+	}
 	
 	void loadImage(String imageFile) {
 	    if (needImage) {
