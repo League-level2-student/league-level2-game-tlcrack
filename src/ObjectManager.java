@@ -12,7 +12,8 @@ public class ObjectManager {
 	public ObjectManager(GamePanel gp, Wizard w) {
 		this.gp=gp;
 		this.w=w;
-		enemies.add(new Enemy(700, 400, 100, 100));
+		double angle = getTanAngle(700, 400, w.x, w.y);
+		enemies.add(new Enemy(700, 400, 100, 100, angle));
 	}
 	
 	void draw(Graphics g) {
@@ -39,6 +40,7 @@ public class ObjectManager {
 			drawLevel3Text(g);
 			for(int i = enemies.size()-1; i>=0; i--) {
 				enemies.get(i).draw(g);
+				
 			}
 		}
 		gp.wb.draw(g);
@@ -69,13 +71,50 @@ public class ObjectManager {
 		g.setFont(gp.gameSubtitle);
 		g.drawString("Kill the bats with your energy beam.", 300, 150);
 	}
+	
+	double getTanAngle(int startX, int startY, int endX, int endY) {
+		return Math.atan2(endY-startY, endX - startX);
+	}
+	
 	void update() {
 		w.update();
+		for(int x = enemies.size()-1; x >= 0; x--) {
+			enemies.get(x).update();
+		}
 		gp.wb.update(w.x, w.y, w.height);
 		if(gp.level==2) {
 			if (collisionCheck(w, gp.staff)==true){
 				hasWand=true;
 				
+			}
+		
+		}
+		else if(gp.level==3) {
+			
+			for(int x=enemies.size()-1; x>=0; x--) {
+				Enemy enemy = enemies.get(x);
+				
+				if(enemy.isActive) {
+					double angle = getTanAngle(enemy.x, enemy.y, w.x, w.y);
+					enemy.setAngle(angle);
+					enemy.setSpeed(3, 3);
+					if(collisionCheck(w, enemy)==true) {
+					
+					}
+					if(collisionCheck(gp.wb, enemy)==true) {
+						enemy.isActive=false;
+					}
+				}
+			}
+		}
+		purgeEnemies();
+	}
+	
+	void purgeEnemies() {
+		for(int x=enemies.size()-1; x>=0; x--) {
+			Enemy enemy = enemies.get(x);
+			if(!enemy.isActive) {
+				enemies.remove(enemy);
 			}
 		}
 	}

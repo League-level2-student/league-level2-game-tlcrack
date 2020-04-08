@@ -21,7 +21,6 @@ public class WizardBeam extends GameObject{
 	
 	void draw(Graphics g) {
 		if(isActive) {
-			System.out.println("check");
 		if (gotImage) {
 			g.drawImage(image, x, y, image.getWidth(), image.getHeight(), null);
 		} else {
