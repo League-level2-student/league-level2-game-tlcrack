@@ -99,11 +99,12 @@ public class ObjectManager {
 					enemy.setAngle(angle);
 					enemy.setSpeed(3, 3);
 					if(collisionCheck(w, enemy)==true) {
-					
+						gp.mode = 4;
 					}
-					if(collisionCheck(gp.wb, enemy)==true) {
+					if(collisionCheck(gp.wb, enemy)==true && gp.wb.isActive==true) {
 						enemy.isActive=false;
 					}
+					System.out.println(enemy.isActive);
 				}
 			}
 		}

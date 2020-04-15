@@ -5,8 +5,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class WizardBeam extends GameObject{
-
-	boolean isActive = false;
+	
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
@@ -17,6 +16,7 @@ public class WizardBeam extends GameObject{
 		if (needImage) {
 		    loadImage ("light beam.png");
 		}
+		isActive = false;
 	}
 	
 	void draw(Graphics g) {
@@ -33,7 +33,7 @@ public class WizardBeam extends GameObject{
 	void update(int newX,int newY,int height) {
 		this.x=newX;
 		this.y=newY-(height/2);
-		
+		super.update();
 		
 	}
 	

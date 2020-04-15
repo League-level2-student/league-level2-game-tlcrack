@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
     final int GAME = 1;
     final int BOSS = 2;
     final int END = 3;
+    final int FAIL = 4;
     int mode = MENU;
     int level = 1;
     
