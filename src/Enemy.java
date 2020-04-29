@@ -24,6 +24,7 @@ public class Enemy extends GameObject{
 	void update() {
 		x += Math.cos(tanAngle)*xSpeed;
 		y += Math.sin(tanAngle)*ySpeed;
+		super.update();
 	}
 	
 	void setAngle(double angle) {
