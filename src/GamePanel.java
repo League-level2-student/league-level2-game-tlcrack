@@ -61,7 +61,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 			}
 		}
 		w = new Wizard(50, 450, 100, 100);
-		wb = new WizardBeam(w.x+w.width, w.y-(w.height/2), 300, 214);
+		wb = new WizardBeam(w.x+w.width, w.y, 275, 25);
 		om=new ObjectManager(this, w);
 		updateTimer.start();
 	}
@@ -90,6 +90,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		}
 		if(mode==GAME) {
 			
+			om.draw(g);
+		}
+		if(mode==BOSS) {
+			//insert image here
 			om.draw(g);
 		}
 	}

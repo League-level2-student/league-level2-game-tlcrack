@@ -22,7 +22,7 @@ public class WizardBeam extends GameObject{
 	void draw(Graphics g) {
 		if(isActive) {
 		if (gotImage) {
-			g.drawImage(image, x, y, image.getWidth(), image.getHeight(), null);
+			g.drawImage(image, x, y-75, image.getWidth(), image.getHeight(), null);
 		} else {
 			g.setColor(Color.BLUE);
 			g.fillRect(x, y, width, height);

@@ -55,6 +55,9 @@ public class ObjectManager {
 			
 			}
 		}
+		if(gp.level==6) {
+			gp.mode=gp.BOSS;
+		}
 		gp.wb.draw(g);
 		
 	}
@@ -77,17 +80,20 @@ public class ObjectManager {
 		g.drawString("Press space to fire an energy beam.", 250, 150);
 	}
 	void drawLevel3Text(Graphics g) {
+		g.setColor(new Color(75, 150, 175));
 		g.drawString("It's getting dark. Look out!", 250, 100);
 		g.setFont(gp.gameSubtitle);
 		g.drawString("Kill the batlin with your energy beam.", 250, 150);
 	}
 	void drawLevel4Text(Graphics g) {
+		g.setColor(new Color(75, 150, 175));
 		g.drawString("More? You must be close to their cave.", 150, 100);
 		g.setFont(gp.gameSubtitle);
 		g.drawString("Be careful-the batlin bite is deadly.", 220, 150);
 		
 	}
 	void drawLevel5Text(Graphics g) {
+		g.setColor(new Color(75, 150, 175));
 		g.drawString("Look out - the batlin use battle tactics.", 150, 100);
 		g.setFont(gp.gameSubtitle);
 		g.drawString("Don't sprint for the exit.", 350, 150);
@@ -102,7 +108,7 @@ public class ObjectManager {
 		for(int x = enemies.size()-1; x >= 0; x--) {
 			enemies.get(x).update();
 		}
-		gp.wb.update(w.x, w.y, w.height);
+		gp.wb.update(w.x, w.y+75, w.height);
 		if(gp.level==2) {
 			if (collisionCheck(w, gp.staff)==true){
 				hasWand=true;
