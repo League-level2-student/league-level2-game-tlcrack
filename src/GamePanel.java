@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	
 	final int MENU = 0;
     final int GAME = 1;
-    final int BOSS = 2;
     final int END = 3;
     final int FAIL = 4;
     int mode = MENU;
@@ -90,11 +89,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		}
 		if(mode==GAME) {
 			
-			om.draw(g);
-		}
-		if(mode==BOSS) {
-			//insert image here
-			om.draw(g);
+			
+			if(level==6) {
+				//insert image here
+				om.draw(g);
+			}
+			else {
+				om.draw(g);
+			}
 		}
 	}
 	
@@ -135,9 +137,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 					om.addEnemy(700, 850);
 				}
 				if(level==5) {
-					om.addEnemy(500, 400);
-					om.addEnemy(500, 100);
-					om.addEnemy(500, 700);
+					om.addEnemy(500,  400);
+					om.addEnemy(500,  100);
+					om.addEnemy(500,  700);
 					om.addEnemy(1500, 100);
 					om.addEnemy(1500, 200);
 					om.addEnemy(1500, 300);
@@ -147,23 +149,23 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 					om.addEnemy(1500, 700);
 					om.addEnemy(1500, 800);
 					om.addEnemy(1500, 900);
-					om.addEnemy(1500, 1000);
-					om.addEnemy(1900, -1000);
-					om.addEnemy(1900, -800);
-					om.addEnemy(1900, -600);
-					om.addEnemy(1900, -400);
-					om.addEnemy(1900, -200);
-					om.addEnemy(1900, 0);
+					om.addEnemy(1500,1000);
+				   om.addEnemy(1900,-1000);
+					om.addEnemy(1900,-800);
+					om.addEnemy(1900, 600);
+					om.addEnemy(1900,-400);
+					om.addEnemy(1900,-200);
+					om.addEnemy(1900,   0);
 					om.addEnemy(1900, 200);
 					om.addEnemy(1900, 400);
 					om.addEnemy(1900, 600);
 					om.addEnemy(1900, 800);
-					om.addEnemy(1900, 1000);
-					om.addEnemy(1900, 1200);
-					om.addEnemy(1900, 1400);
-					om.addEnemy(1900, 1600);
-					om.addEnemy(1900, 1800);
-					om.addEnemy(1900, 2000);
+					om.addEnemy(1900,1000);
+					om.addEnemy(1900,1200);
+					om.addEnemy(1900,1400);
+					om.addEnemy(1900,1600);
+					om.addEnemy(1900,1800);
+					om.addEnemy(1900,2000);
 				}
 				w.setX(0);
 				w.setY(450);
@@ -185,7 +187,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		    needImage=true;
 			loadImage();
 		}
-		if(mode==GAME||mode==BOSS) {
+		if(mode==GAME) {
 		if(e.getKeyCode()==KeyEvent.VK_UP) {
 			w.moveUp();
 		}

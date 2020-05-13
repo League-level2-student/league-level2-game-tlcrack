@@ -8,7 +8,7 @@ public class ObjectManager {
 	boolean hasWand = false;
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	public boolean isDay = true;
-	
+	Boss b = new Boss(700, 100, 500, 500);
 	public ObjectManager(GamePanel gp, Wizard w) {
 		this.gp=gp;
 		this.w=w;
@@ -56,7 +56,8 @@ public class ObjectManager {
 			}
 		}
 		if(gp.level==6) {
-			gp.mode=gp.BOSS;
+			drawLevel6Text(g);
+			b.draw(g);
 		}
 		gp.wb.draw(g);
 		
@@ -97,6 +98,12 @@ public class ObjectManager {
 		g.drawString("Look out - the batlin use battle tactics.", 150, 100);
 		g.setFont(gp.gameSubtitle);
 		g.drawString("Don't sprint for the exit.", 350, 150);
+	}
+	void drawLevel6Text (Graphics g) {
+		g.setColor(new Color(75, 150, 175));
+		g.drawString("Take down the Golbatlin!", 300, 100);
+		g.setFont(gp.gameSubtitle);
+		g.drawString("You have gained enough power.", 250, 150);
 	}
 	
 	double getTanAngle(int startX, int startY, int endX, int endY) {
@@ -157,7 +164,7 @@ public class ObjectManager {
 	}
 	void addEnemy(int x, int y){
 		double angle = getTanAngle(x, y, w.x, w.y);
-		enemies.add(new Enemy(x, y, 100, 100, angle));
+		enemies.add(new Enemy(x, y, 130, 90, angle));
 	}
 	
 	

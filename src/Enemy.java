@@ -41,10 +41,10 @@ public class Enemy extends GameObject{
 				gotImage = true;
 			} catch (Exception e) {
 	            
-		}
+			}
 	    needImage = false;
-    }
-}
+		}
+	}
 	void draw(Graphics g) {
 		g.drawImage(image, x, y, image.getWidth(), image.getHeight(), null);
 	}
