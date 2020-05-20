@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -28,9 +29,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
     final int END = 3;
     final int FAIL = 4;
     int mode = MENU;
-    int level = 1;
+    int level = 2;
     
     Timer updateTimer = new Timer(1000/60, this);
+    Timer batlinSpawner = new Timer(2000/1, this);
+    
+    Random batlinRandomizer = new Random();
     
 	String menuBackground = "menu_background.jpg";
 	String gameBackground = "grass.png";
@@ -167,6 +171,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 					om.addEnemy(1900,1800);
 					om.addEnemy(1900,2000);
 				}
+				if(level==6) {
+					if(!batlinSpawner.isRunning()) {
+						batlinSpawner.start();
+					}
+					
+				}
 				w.setX(0);
 				w.setY(450);
 				
@@ -228,6 +238,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		if(mode==GAME) {
 			om.update();
 			drawGameState();
+			if(level==6&&e.getSource()==batlinSpawner) {
+				om.addEnemy(700, batlinRandomizer.nextInt(550) + 50);
+			
+			}
 		}
 		repaint();
 		

@@ -8,7 +8,7 @@ public class ObjectManager {
 	boolean hasWand = false;
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	public boolean isDay = true;
-	Boss b = new Boss(700, 100, 500, 500);
+	Boss b = new Boss(500, 100, 500, 500);
 	public ObjectManager(GamePanel gp, Wizard w) {
 		this.gp=gp;
 		this.w=w;
@@ -58,6 +58,9 @@ public class ObjectManager {
 		if(gp.level==6) {
 			drawLevel6Text(g);
 			b.draw(g);
+			for(int i = enemies.size()-1; i>=0; i--) {
+				enemies.get(i).draw(g);
+			}
 		}
 		gp.wb.draw(g);
 		
@@ -123,7 +126,7 @@ public class ObjectManager {
 			}
 		
 		}
-		else if(gp.level==3||gp.level==4||gp.level==5) {
+		else if(gp.level>2) {
 			
 			for(int x=enemies.size()-1; x>=0; x--) {
 				Enemy enemy = enemies.get(x);
