@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class ObjectManager {
@@ -8,7 +11,7 @@ public class ObjectManager {
 	boolean hasWand = false;
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	public boolean isDay = true;
-	Boss b = new Boss(500, 100, 500, 500);
+	Boss b = new Boss(700, 100, 500, 500);
 	public ObjectManager(GamePanel gp, Wizard w) {
 		this.gp=gp;
 		this.w=w;
@@ -142,6 +145,13 @@ public class ObjectManager {
 						enemy.isActive=false;
 						
 					}
+					if(collisionCheck(gp.wb, b)==true) {
+						if(b.bossHealth==2) {
+							gp.batlinSpawner.stop();
+						}
+						b.bossHealth-=1;
+						gp.wizardKnockback.start();
+					}
 				}
 			}
 		}
@@ -169,6 +179,15 @@ public class ObjectManager {
 		double angle = getTanAngle(x, y, w.x, w.y);
 		enemies.add(new Enemy(x, y, 130, 90, angle));
 	}
-	
+    public BufferedImage rotateImage( BufferedImage image, int rotationDeg ) {
+        double rotationRad = Math.toRadians(rotationDeg);
+        double locationX = image.getWidth() / 2;
+        double locationY = image.getHeight() / 2;
+        
+        AffineTransform tx = AffineTransform.getRotateInstance(rotationRad, locationX, locationY);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+        return op.filter(image, null);
+    }
 	
 }

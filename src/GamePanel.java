@@ -30,9 +30,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
     final int FAIL = 4;
     int mode = MENU;
     int level = 2;
+    int wizardProgress = 0;
     
     Timer updateTimer = new Timer(1000/60, this);
-    Timer batlinSpawner = new Timer(2000/1, this);
+    Timer batlinSpawner = new Timer(1000/1, this);
+    Timer wizardKnockback = new Timer(50/1, this);
+    Timer bossInvincibility = new Timer(1500/1, this);
     
     Random batlinRandomizer = new Random();
     
@@ -238,9 +241,23 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		if(mode==GAME) {
 			om.update();
 			drawGameState();
-			if(level==6&&e.getSource()==batlinSpawner) {
-				om.addEnemy(700, batlinRandomizer.nextInt(550) + 50);
-			
+			if(level==6) {
+				if(e.getSource()==batlinSpawner) {
+					om.addEnemy(700, batlinRandomizer.nextInt(550) + 50);
+					
+				}
+				else if(e.getSource()==wizardKnockback) {
+					w.x-=10;
+					wizardProgress+=1;
+					if(wizardProgress==1) {
+						om.hasWand=false;
+					}
+					else if(wizardProgress==32) {
+						wizardKnockback.stop();
+						wizardProgress=0;
+						om.hasWand=true;
+					}
+				}
 			}
 		}
 		repaint();
