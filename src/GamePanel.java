@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
     Timer batlinSpawner = new Timer(1000/1, this);
     Timer wizardKnockback = new Timer(50/1, this);
     Timer bossInvincibility = new Timer(1500/1, this);
+    Timer fireBreath = new Timer(1000/1, this);
     
     Random batlinRandomizer = new Random();
     
@@ -131,7 +132,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	    }
 	}
 		void drawGameState() {
-			if(w.x>1000) {
+			if((w.x>1000&&level<6) || om.b.bossHealth==0) {
 				level+=1;
 				if(level==3) {
 					om.addEnemy(700, 400);
@@ -144,39 +145,42 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 					om.addEnemy(700, 850);
 				}
 				if(level==5) {
-					om.addEnemy(500,  400);
-					om.addEnemy(500,  100);
-					om.addEnemy(500,  700);
-					om.addEnemy(1500, 100);
-					om.addEnemy(1500, 200);
-					om.addEnemy(1500, 300);
-					om.addEnemy(1500, 400);
-					om.addEnemy(1500, 500);
-					om.addEnemy(1500, 600);
-					om.addEnemy(1500, 700);
-					om.addEnemy(1500, 800);
-					om.addEnemy(1500, 900);
-					om.addEnemy(1500,1000);
-				   om.addEnemy(1900,-1000);
-					om.addEnemy(1900,-800);
-					om.addEnemy(1900, 600);
-					om.addEnemy(1900,-400);
-					om.addEnemy(1900,-200);
-					om.addEnemy(1900,   0);
-					om.addEnemy(1900, 200);
-					om.addEnemy(1900, 400);
-					om.addEnemy(1900, 600);
-					om.addEnemy(1900, 800);
-					om.addEnemy(1900,1000);
-					om.addEnemy(1900,1200);
-					om.addEnemy(1900,1400);
-					om.addEnemy(1900,1600);
-					om.addEnemy(1900,1800);
-					om.addEnemy(1900,2000);
+					om.addEnemy(500,   400);
+					om.addEnemy(500,   100);
+					om.addEnemy(500,   700);
+					om.addEnemy(1500,  100);
+					om.addEnemy(1500,  200);
+					om.addEnemy(1500,  300);
+					om.addEnemy(1500,  400);
+					om.addEnemy(1500,  500);
+					om.addEnemy(1500,  600);
+					om.addEnemy(1500,  700);
+					om.addEnemy(1500,  800);
+					om.addEnemy(1500,  900);
+					om.addEnemy(1500, 1000);
+					om.addEnemy(1900, -800);
+					om.addEnemy(1900,  600);
+					om.addEnemy(1900, -400);
+					om.addEnemy(1900, -200);
+					om.addEnemy(1900,    0);
+					om.addEnemy(1900,  200);
+					om.addEnemy(1900,  400);
+					om.addEnemy(1900,  600);
+					om.addEnemy(1900,  800);
+					om.addEnemy(1900, 1000);
+					om.addEnemy(1900, 1200);
+					om.addEnemy(1900, 1400);
+					om.addEnemy(1900, 1600);
+					om.addEnemy(1900, 1800);
+					om.addEnemy(1900, 2000);
+				    om.addEnemy(1900,-1000);
 				}
 				if(level==6) {
 					if(!batlinSpawner.isRunning()) {
 						batlinSpawner.start();
+					}
+					if(!fireBreath.isRunning()) {
+						fireBreath.start();
 					}
 					
 				}
@@ -252,11 +256,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 					if(wizardProgress==1) {
 						om.hasWand=false;
 					}
-					else if(wizardProgress==32) {
+					else if(wizardProgress==42||w.x<20) {
 						wizardKnockback.stop();
 						wizardProgress=0;
 						om.hasWand=true;
 					}
+				}
+				else if (e.getSource()==fireBreath) {
+					
 				}
 			}
 		}

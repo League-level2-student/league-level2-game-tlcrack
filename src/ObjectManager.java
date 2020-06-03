@@ -12,9 +12,11 @@ public class ObjectManager {
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	public boolean isDay = true;
 	Boss b = new Boss(700, 100, 500, 500);
+	FireBreath f;
 	public ObjectManager(GamePanel gp, Wizard w) {
 		this.gp=gp;
 		this.w=w;
+		f=new FireBreath(false);
 	}
 	
 	void draw(Graphics g) {
@@ -145,18 +147,21 @@ public class ObjectManager {
 						enemy.isActive=false;
 						
 					}
-					if(collisionCheck(gp.wb, b)==true) {
-						if(b.bossHealth==2) {
-							gp.batlinSpawner.stop();
-						}
-						b.bossHealth-=1;
-						gp.wizardKnockback.start();
-					}
+					
 				}
+				
+			}
+			if(collisionCheck(gp.wb, b)==true) {
+				if(b.bossHealth==2) {
+					gp.batlinSpawner.stop();
+				}
+				b.bossHealth-=1;
+				gp.wizardKnockback.start();
 			}
 		}
 		purgeEnemies();
 	}
+	
 	
 	void purgeEnemies() {
 		for(int x=enemies.size()-1; x>=0; x--) {
