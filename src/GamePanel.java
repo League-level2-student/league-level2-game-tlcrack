@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
     Timer batlinSpawner = new Timer(1000/1, this);
     Timer wizardKnockback = new Timer(50/1, this);
     Timer bossInvincibility = new Timer(1500/1, this);
-    Timer fireBreath = new Timer(1000/1, this);
+    Timer fire = new Timer(1000/1, this);
     
     Random batlinRandomizer = new Random();
     
@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	Font continueFont = new Font("Arial", Font.PLAIN, 40);
 	Font gameFont = new Font("Arial", Font.PLAIN, 40);
 	Font gameSubtitle = new Font("Arial", Font.BOLD, 25);
+	boolean invincibility = false;
 	Wizard w;
 	ObjectManager om;
 	GameObject staff = new GameObject(880, 500, 65, 65);
@@ -132,7 +133,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	    }
 	}
 		void drawGameState() {
-			if((w.x>1000&&level<6) || om.b.bossHealth==0) {
+			if((w.x>1000&&level<6) || (om.b.bossHealth==0&&om.b.isActive)) {
 				level+=1;
 				if(level==3) {
 					om.addEnemy(700, 400);
@@ -176,11 +177,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 				    om.addEnemy(1900,-1000);
 				}
 				if(level==6) {
-					if(!batlinSpawner.isRunning()) {
+					om.b.isActive=true;
+					if(!batlinSpawner.isRunning() && om.b.bossHealth>1) {
 						batlinSpawner.start();
 					}
-					if(!fireBreath.isRunning()) {
-						fireBreath.start();
+					if(!fire.isRunning() && om.b.bossHealth>0) {
+						fire.start();
 					}
 					
 				}
@@ -230,8 +232,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		w.XSpeed = 0;
-		w.YSpeed = 0;
+		if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_RIGHT) {
+			w.XSpeed = 0;
+		}
+		else if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_DOWN) {
+			w.YSpeed = 0;
+		}
 		if(om.hasWand&&wb.isActive) {
 			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
 				wb.isActive=false;
@@ -262,7 +268,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 						om.hasWand=true;
 					}
 				}
-				else if (e.getSource()==fireBreath) {
+				else if (e.getSource()==fire) {
 					
 				}
 			}

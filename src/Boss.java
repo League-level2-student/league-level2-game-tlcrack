@@ -13,7 +13,7 @@ public class Boss extends GameObject{
 	Boss(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
-	
+	isActive=false;
 		if(needImage) {
 			loadImage("Golbat.png");
 		}

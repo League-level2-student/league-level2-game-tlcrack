@@ -61,6 +61,7 @@ public class ObjectManager {
 			}
 		}
 		if(gp.level==6) {
+			b.isActive=true;
 			drawLevel6Text(g);
 			b.draw(g);
 			for(int i = enemies.size()-1; i>=0; i--) {
@@ -151,11 +152,13 @@ public class ObjectManager {
 				}
 				
 			}
-			if(collisionCheck(gp.wb, b)==true) {
-				if(b.bossHealth==2) {
+			if(collisionCheck(gp.wb, b)==true && b.isActive && gp.invincibility==false) {
+				System.out.println("boss collision");
+				b.bossHealth-=1;
+				gp.invincibility = true;
+				if(b.bossHealth==1) {
 					gp.batlinSpawner.stop();
 				}
-				b.bossHealth-=1;
 				gp.wizardKnockback.start();
 			}
 		}
