@@ -67,6 +67,9 @@ public class ObjectManager {
 			for(int i = enemies.size()-1; i>=0; i--) {
 				enemies.get(i).draw(g);
 			}
+			if(gp.fb.isActive) {
+				gp.fb.draw(g);
+			}
 		}
 		gp.wb.draw(g);
 		
@@ -158,6 +161,9 @@ public class ObjectManager {
 				gp.invincibility = true;
 				if(b.bossHealth==1) {
 					gp.batlinSpawner.stop();
+					if(!gp.fire.isRunning()) {
+						gp.fire.start();
+					}
 				}
 				gp.wizardKnockback.start();
 			}

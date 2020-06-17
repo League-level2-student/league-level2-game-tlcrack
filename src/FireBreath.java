@@ -8,15 +8,18 @@ public class FireBreath extends GameObject{
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 	boolean isActive;
+	
 	FireBreath(boolean isActive) {
-		super(700, 300, 20, 20);
+		super(400, 275, 350, 400);
 		this.isActive=isActive;
 		if(needImage) {
-			loadImage("Fire Breath.png");
+			loadImage("Fire_Breath.png");
 		}
 	}
 
-	
+	void FireShot() {
+		isActive=!isActive;
+	}
 
 
 

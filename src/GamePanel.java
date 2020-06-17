@@ -35,8 +35,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
     Timer updateTimer = new Timer(1000/60, this);
     Timer batlinSpawner = new Timer(1000/1, this);
     Timer wizardKnockback = new Timer(50/1, this);
-    Timer bossInvincibility = new Timer(1500/1, this);
+    Timer bossInvincibility = new Timer(2000/1, this);
     Timer fire = new Timer(1000/1, this);
+    Timer fireBall = new Timer(1200/1, this);
     
     Random batlinRandomizer = new Random();
     
@@ -56,6 +57,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 	ObjectManager om;
 	GameObject staff = new GameObject(880, 500, 65, 65);
 	WizardBeam wb;
+	FireBreath fb;
 	
 	GamePanel() {
 		if (needImage) {
@@ -70,7 +72,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 		}
 		w = new Wizard(50, 450, 100, 100);
 		wb = new WizardBeam(w.x+w.width, w.y, 275, 25);
-		om=new ObjectManager(this, w);
+		om = new ObjectManager(this, w);
+		fb = new FireBreath(false);
 		updateTimer.start();
 	}
 	
@@ -181,7 +184,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 					if(!batlinSpawner.isRunning() && om.b.bossHealth>1) {
 						batlinSpawner.start();
 					}
-					if(!fire.isRunning() && om.b.bossHealth>0) {
+					if(invincibility) {
+						bossInvincibility.start();
+					}
+					if(!fire.isRunning() && om.b.bossHealth>1) {
 						fire.start();
 					}
 					
@@ -191,6 +197,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 				
 			}
 		}
+		
+		
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -268,8 +276,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener{
 						om.hasWand=true;
 					}
 				}
+				else if(e.getSource()==bossInvincibility) {
+					invincibility=false;
+				}
 				else if (e.getSource()==fire) {
-					
+					fb.FireShot();
 				}
 			}
 		}
