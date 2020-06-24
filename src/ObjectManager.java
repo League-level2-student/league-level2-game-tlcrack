@@ -157,15 +157,21 @@ public class ObjectManager {
 			}
 			if(collisionCheck(gp.wb, b)==true && b.isActive && gp.invincibility==false) {
 				System.out.println("boss collision");
-				b.bossHealth-=1;
-				gp.invincibility = true;
-				if(b.bossHealth==1) {
-					gp.batlinSpawner.stop();
-					if(!gp.fire.isRunning()) {
-						gp.fire.start();
-					}
+				//b.bossHealth-=1;
+				//gp.invincibility = true;
+				//if(b.bossHealth==1) {
+				//	gp.batlinSpawner.stop();
+				//	if(!gp.fire.isRunning()) {
+				//		gp.fire.start();
+					//}
+				//}
+				//gp.wizardKnockback.start();
+				gp.mode=3;
+			}
+			if(b.isActive&&gp.fb.isActive) {
+				if(collisionCheck(gp.w, gp.fb)==true) {
+					gp.mode=4;
 				}
-				gp.wizardKnockback.start();
 			}
 		}
 		purgeEnemies();
