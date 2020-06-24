@@ -94,7 +94,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			g.fillRect(0, 0, 1000, 1000);
 		}
 		
-		System.out.println(mode);
 
 		if (mode == MENU) {
 

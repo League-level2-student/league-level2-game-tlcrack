@@ -156,7 +156,7 @@ public class ObjectManager {
 				
 			}
 			if(collisionCheck(gp.wb, b)==true && b.isActive && gp.invincibility==false) {
-				System.out.println("boss collision");
+				
 				//b.bossHealth-=1;
 				//gp.invincibility = true;
 				//if(b.bossHealth==1) {
