@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	final int END = 3;
 	final int FAIL = 4;
 	int mode = MENU;
-	int level = 2;
+	int level = 1;
 	int wizardProgress = 0;
 
 	Timer updateTimer = new Timer(1000 / 60, this);
@@ -120,12 +120,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 
 	void drawEndText(Graphics g) {
-		System.out.println("draw end text");
 		g.setFont(welcomeFont);
 		g.setColor(new Color(136, 5, 245));
-		g.drawString("You Won!", 240, 200);
+		g.drawString("You Won!", 300, 200);
 		g.setFont(continueFont);
-		g.drawString("Thanks for playing.", 300, 500);
+		g.drawString("Thanks for playing.", 260, 500);
 	}
 
 	void loadImage() {
