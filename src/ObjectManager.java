@@ -156,16 +156,17 @@ public class ObjectManager {
 				
 			}
 			if(collisionCheck(gp.wb, b)==true && b.isActive && gp.invincibility==false) {
-				
-				//b.bossHealth-=1;
-				//gp.invincibility = true;
-				//if(b.bossHealth==1) {
-				//	gp.batlinSpawner.stop();
-				//	if(!gp.fire.isRunning()) {
-				//		gp.fire.start();
-					//}
-				//}
-				//gp.wizardKnockback.start();
+				/*
+				b.bossHealth-=1;
+				gp.invincibility = true;
+				if(b.bossHealth==1) {
+					gp.batlinSpawner.stop();
+					if(!gp.fire.isRunning()) {
+						gp.fire.start();
+					}
+				}
+				gp.wizardKnockback.start();
+				*/
 				gp.mode=3;
 			}
 			if(b.isActive&&gp.fb.isActive) {

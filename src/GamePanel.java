@@ -160,32 +160,16 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 				om.addEnemy(500, 400);
 				om.addEnemy(500, 100);
 				om.addEnemy(500, 700);
-				om.addEnemy(1500, 100);
-				om.addEnemy(1500, 200);
-				om.addEnemy(1500, 300);
-				om.addEnemy(1500, 400);
-				om.addEnemy(1500, 500);
-				om.addEnemy(1500, 600);
-				om.addEnemy(1500, 700);
-				om.addEnemy(1500, 800);
-				om.addEnemy(1500, 900);
-				om.addEnemy(1500, 1000);
-				om.addEnemy(1900, -800);
-				om.addEnemy(1900, 600);
-				om.addEnemy(1900, -400);
-				om.addEnemy(1900, -200);
-				om.addEnemy(1900, 0);
-				om.addEnemy(1900, 200);
-				om.addEnemy(1900, 400);
-				om.addEnemy(1900, 600);
-				om.addEnemy(1900, 800);
-				om.addEnemy(1900, 1000);
-				om.addEnemy(1900, 1200);
-				om.addEnemy(1900, 1400);
-				om.addEnemy(1900, 1600);
-				om.addEnemy(1900, 1800);
-				om.addEnemy(1900, 2000);
-				om.addEnemy(1900, -1000);
+				
+				//This took up 20 lines for TWO YEARS because I was printing them out individually. - Tate Criqui, 9/3/2022
+				
+				for(int i = 100; i < 1000; i+=100) {
+					om.addEnemy(1500, i);
+				}
+				
+				for(int i = -1000; i < 2000; i+=200) {
+					om.addEnemy(1900, i);
+				}
 			}
 			if (level == 6) {
 				om.b.isActive = true;
